@@ -69,7 +69,7 @@ kmkeeper/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/steven2k2/web_stack.git
+   git clone https://github.com/steven2k2/kmkeeper.git
    cd web_stack
    ```
 
