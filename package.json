@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "testdata": "node scripts/populateTestData.js",
-    "build-css": "sass public/scss/custom-bootstrap.scss public/css/custom-bootstrap.css"
+    "scss": "sass public/scss/main.scss public/css/styles.css --watch"
   },
   "keywords": [
     "trip tracking",
