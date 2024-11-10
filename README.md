@@ -108,7 +108,7 @@ npm run dev
 
 ## Example Endpoints
 
-- **GET /users** - Displays users in a styled table format using Bootstrap.
+- **GET /clients/browse** - Displays users in a styled table format using Bootstrap.
 
 ## Deployment
 
