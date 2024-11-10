@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trips</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom-bootstrap.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+
+<%- include('../partials/header') %>
+<div class="container-fluid">
+    <div class="row">
+        <%- include('../partials/sidebar') %> <!-- Path relative to the /views directory -->
+
+        <!-- Main Content Area -->
+        <div class="col">
+            <div class="container mt-5">
+                <h2 class="mb-4">Trips</h2>
+                <table class="table table-sm table-hover">
+                    <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Start Location</th>
+                        <th>End Location</th>
+                        <th>Distance</th>
+                        <th>Purpose</th>
+                        <th>Notes</th>
+                        <th class="text-right">Claim Amount ($)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% trips.forEach(trip => { %>
+                        <tr>
+                            <td><%= trip.client_name %></td>
+                            <td><%= trip.start_location %></td>
+                            <td><%= trip.end_location %></td>
+                            <td><%= trip.distance %> km</td>
+                            <td><%= trip.purpose %></td>
+                            <td class="text-truncate" style="max-width: 150px;"><%= trip.notes %></td>
+                            <td class="text-right">$<%= trip.claim_amount_dollars ? trip.claim_amount_dollars.toFixed(2) : '0.00' %></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

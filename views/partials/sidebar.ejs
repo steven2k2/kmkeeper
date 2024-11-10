@@ -1,0 +1,25 @@
+<!-- partials/sidebar.ejs-->
+<!-- Sidebar -->
+<div class="bg-light d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <span class="fs-4 text-capitalize text-primary"><%= text %></span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="/dashboard" class="nav-link <%= text === 'dashboard' ? 'active' : 'link-dark' %>">
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/trips/browse" class="nav-link <%= text === 'trips' ? 'active' : 'link-dark' %>">
+                Trips
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/readings" class="nav-link <%= text === 'readings' ? 'active' : 'link-dark' %>">
+                Clients
+            </a>
+        </li>
+    </ul>
+</div>

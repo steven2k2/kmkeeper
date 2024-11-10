@@ -1,0 +1,31 @@
+{
+  "name": "kmkeeper",
+  "version": "1.0.0",
+  "description": "KmKeeper - Track essential trip details and mileage",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "testdata": "node scripts/populateTestData.js",
+    "build-css": "sass public/scss/custom-bootstrap.scss public/css/custom-bootstrap.css"
+  },
+  "keywords": [
+    "trip tracking",
+    "mileage",
+    "Express",
+    "PostgreSQL"
+  ],
+  "author": "Steven Thompson",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "sass": "^1.80.6"
+  }
+}

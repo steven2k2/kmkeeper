@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/custom-bootstrap.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+<%- include('./partials/header') %>
+<div class="container-fluid">
+    <div class="row">
+        <%- include('./partials/sidebar') %> <!-- Path relative to the /views directory -->
+
+        <!-- Main Content Area -->
+        <div class="col" style="margin-left: 280px; padding-top: 20px;">
+            <div class="container">
+                <!-- Summary Cards Section -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Trips</h5>
+                                <p class="card-text"><%= totalTrips %></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Distance (km)</h5>
+                                <p class="card-text"><%= totalDistance %> km</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Claims ($)</h5>
+                                <p class="card-text">$<%= totalClaims %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <h4 class="mt-5">Recent</h4>
+                <table class="table table-sm table-hover">
+                    <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Start Location</th>
+                        <th>End Location</th>
+                        <th>Distance</th>
+                        <th>Claim Amount ($)</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% recentTrips.forEach(trip => { %>
+                        <tr>
+                            <td><%= trip.client_name %></td>
+                            <td><%= trip.start_location %></td>
+                            <td><%= trip.end_location %></td>
+                            <td><%= trip.distance %> km</td>
+                            <td><%= trip.cost %></td>
+                            <td><%= trip.date %></td>
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
