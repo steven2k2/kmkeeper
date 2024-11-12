@@ -1,46 +1,79 @@
+-- Table structure for table `travel_logs`
+--
+CREATE TABLE travel_logs
+(
+    travel_id         SERIAL PRIMARY KEY,
+    client_id         INT,
+    travel_date       DATE          NOT NULL,
+    start_address     VARCHAR(100)  NOT NULL,
+    end_address       VARCHAR(100)  NOT NULL,
+    distance_km       DECIMAL(5, 2) NOT NULL,
+    travel_reason     VARCHAR(50),
+    notes             TEXT,
+    billing_period_id INT
+);
 
--- Create the trips table if it doesn't already exist
-CREATE TABLE IF NOT EXISTS trips (
-                                     id SERIAL PRIMARY KEY,
-                                     client_name VARCHAR(100) NOT NULL,
-    start_location VARCHAR(100) NOT NULL,
-    end_location VARCHAR(100) NOT NULL,
-    distance DECIMAL(5, 2) NOT NULL,
-    purpose VARCHAR(255) NOT NULL,
-    notes TEXT,
-    cost DECIMAL(10, 2) NOT NULL
-    );
+-- Table structure for table `clients`
+--
+CREATE TABLE clients
+(
+    client_id           SERIAL PRIMARY KEY,
+    client_name         VARCHAR(50) NOT NULL,
+    client_group        VARCHAR(50),
+    email               VARCHAR(100) UNIQUE,
+    mobile_number       VARCHAR(15),
+    address_street      VARCHAR(100),
+    address_city        VARCHAR(50),
+    address_region      VARCHAR(50),
+    address_postal_code VARCHAR(10),
+    address_country     VARCHAR(50) DEFAULT 'Australia',
+    created_at          TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TIMESTAMP   DEFAULT CURRENT_TIMESTAMP
+);
 
--- Insert sample data into the trips table
-INSERT INTO trips (client_name, start_location, end_location, distance, purpose, notes, cost)
-VALUES
-    ('Client A', 'Location 1', 'Location 2', 15.5, 'Consultation', 'Met with the client for an initial consultation.', 50.00),
-    ('Client B', 'Location 3', 'Location 4', 25.0, 'Follow-up', 'Checked in on project status.', 75.00),
-    ('Client C', 'Location 1', 'Location 5', 30.0, 'Maintenance', 'Performed scheduled maintenance.', 100.00),
-    ('Client D', 'Location 2', 'Location 6', 10.0, 'Installation', 'Installed new equipment.', 150.00);
+-- Table structure for table `billing_periods`
+--
+CREATE TABLE billing_periods
+(
+    period_id      SERIAL PRIMARY KEY,
+    start_date     DATE NOT NULL,
+    end_date       DATE NOT NULL,
+    total_distance NUMERIC(6, 2) DEFAULT 0 CHECK (total_distance >= 0)
+);
 
+-- Table structure for table `users`
+--
+CREATE TABLE users
+(
+    user_id      SERIAL PRIMARY KEY,
+    email        VARCHAR(50) NOT NULL UNIQUE,
+    display_name VARCHAR(50) NOT NULL,
+    role         VARCHAR(20) DEFAULT 'user'
+);
 
--- Create the clients table
-CREATE TABLE IF NOT EXISTS clients (
-    client_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    organisation VARCHAR(100),
-    job_title VARCHAR(100),
-    email VARCHAR(100),
-    phone_number VARCHAR(20),
-    address_street VARCHAR(150),
-    address_city VARCHAR(100),
-    address_state VARCHAR(50),
-    post_code VARCHAR(20),
-    address_country VARCHAR(100),
-    notes TEXT
-    );
+-- Insert data into clients table
+INSERT INTO clients (client_name, client_group, email, mobile_number, address_street, address_city, address_region, address_postal_code, address_country)
+VALUES ('Arvid Larsen', 'Corporate', 'arvid.larsen@digitalpathsnorway.no', '+47 910 11 223', 'Kirkegata 56', 'Oslo', 'Oslo', '0153', 'Norway'),
+       ('Emma Berg', 'Retail', 'emma.berg@digitalpathsnorway.no', '+47 910 22 334', 'Holbergs gate 13', 'Bergen', 'Vestland', '5017', 'Norway'),
+       ('Nils Sørensen', 'Private', 'nils.sorensen@digitalpathsnorway.no', '+47 910 33 445', 'Storgata 25', 'Trondheim', 'Trøndelag', '7013', 'Norway'),
+       ('Lise Hansen', 'Corporate', 'lise.hansen@digitalpathsnorway.no', '+47 910 44 556', 'Kongens gate 81', 'Stavanger', 'Rogaland', '4005', 'Norway');
 
--- Insert sample data into the clients table
-INSERT INTO clients (name, organisation, job_title, email, phone_number, address_street, address_city, address_state, post_code, address_country, notes)
-VALUES
-    ('Ola Hansen', '', 'client', 'ola.hansen@digitalpathsnorway.no', '+47-980-12345', 'Wessels gate 181', 'Trondheim', 'Trøndelag', '7043', 'Norway', 'Primary contact for digital transformation projects.'),
-    ('Kari Nygaard', '', 'client', 'kari.nygaard@nordicgreenenergy.no', '+47-980-45678', 'Bjerggata 12', 'Stavanger', 'Rogaland', '4006', 'Norway', 'Key client for renewable energy initiatives in the region.'),
-    ('Lars Solberg', '', 'client', 'lars.solberg@innotechsolutions.no', '+47-980-78901', 'Nygata 7', 'Bergen', 'Vestland', '5003', 'Norway', 'Focus on Scandinavian technology solutions.'),
-    ('Mette Lund', '', 'client', 'mette.lund@helselogistikk.no', '+47-980-11223', 'Storgata 22', 'Oslo', 'Oslo', '0155', 'Norway', 'Main contact for health sector logistics and supply chain management.'),
-    ('Svenn Berg', '', 'client', 'svenn.berg@autonord.no', '+47-980-33445', 'Kongens gate 5', 'Oslo', 'Oslo', '0153', 'Norway', 'Research and development in automotive innovation in Norway.');
+-- Insert data into billing_periods table
+INSERT INTO billing_periods (start_date, end_date, total_distance)
+VALUES ('2024-01-01', '2024-01-31', 350.75),
+       ('2024-02-01', '2024-02-28', 420.50),
+       ('2024-03-01', '2024-03-31', 390.25);
+
+-- Insert data into users table
+INSERT INTO users (email, display_name, role)
+VALUES ('admin@digitalpathsnorway.no', 'Admin User', 'admin'),
+       ('johannes.vik@digitalpathsnorway.no', 'Johannes Vik', 'user'),
+       ('karin.holm@digitalpathsnorway.no', 'Karin Holm', 'user');
+
+-- Insert data into travel_logs table
+INSERT INTO travel_logs (client_id, travel_date, start_address, end_address, distance_km, travel_reason, notes, billing_period_id)
+VALUES (1, '2024-01-10', 'Kirkegata 56, Oslo', 'Holbergs gate 13, Bergen', 120.50, 'Client Meeting', 'Met with client to discuss project requirements', 1),
+       (2, '2024-01-15', 'Holbergs gate 13, Bergen', 'Storgata 25, Trondheim', 150.30, 'Consultation', 'On-site consulting for new product launch', 1),
+       (3, '2024-02-05', 'Storgata 25, Trondheim', 'Kongens gate 81, Stavanger', 200.75, 'Installation', 'Installed new equipment at client premises', 2),
+       (4, '2024-02-20', 'Kongens gate 81, Stavanger', 'Kirkegata 56, Oslo', 100.25, 'Maintenance', 'Performed routine maintenance check', 2),
+       (1, '2024-03-12', 'Kirkegata 56, Oslo', 'Storgata 25, Trondheim', 180.00, 'Follow-up', 'Follow-up on previous consultation', 3);

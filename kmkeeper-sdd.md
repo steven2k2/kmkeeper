@@ -258,53 +258,56 @@ Temporary data structures in KmKeeper include:
 ```sql
 -- Table structure for table `travel_logs`
 --
-CREATE TABLE travel_logs (
-  travel_id SERIAL PRIMARY KEY,
-  client_id INT,
-  travel_date DATE NOT NULL,
-  start_address VARCHAR(100) NOT NULL,
-  end_address VARCHAR(100) NOT NULL,
-  distance_km DECIMAL(5,2) NOT NULL,
-  travel_reason VARCHAR(50),
-  notes TEXT,
-  billing_period_id INT
+CREATE TABLE travel_logs
+(
+    travel_id         SERIAL PRIMARY KEY,
+    client_id         INT,
+    travel_date       DATE          NOT NULL,
+    start_address     VARCHAR(100)  NOT NULL,
+    end_address       VARCHAR(100)  NOT NULL,
+    distance_km       DECIMAL(5, 2) NOT NULL,
+    travel_reason     VARCHAR(50),
+    notes             TEXT,
+    billing_period_id INT
 );
 
 -- Table structure for table `clients`
 --
-CREATE TABLE clients (
-  client_id SERIAL PRIMARY KEY,
-  client_name VARCHAR(50) NOT NULL,
-  client_group VARCHAR(50),
-  email VARCHAR(100) UNIQUE,
-  mobile_number VARCHAR(15),
-  address_street VARCHAR(100),
-  address_city VARCHAR(50),
-  address_region VARCHAR(50),
-  address_postal_code VARCHAR(10),
-  address_country VARCHAR(50) DEFAULT 'Australia',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE clients
+(
+    client_id           SERIAL PRIMARY KEY,
+    client_name         VARCHAR(50) NOT NULL,
+    client_group        VARCHAR(50),
+    email               VARCHAR(100) UNIQUE,
+    mobile_number       VARCHAR(15),
+    address_street      VARCHAR(100),
+    address_city        VARCHAR(50),
+    address_region      VARCHAR(50),
+    address_postal_code VARCHAR(10),
+    address_country     VARCHAR(50) DEFAULT 'Australia',
+    created_at          TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TIMESTAMP   DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table structure for table `billing_periods`
 --
-CREATE TABLE billing_periods (
-    period_id SERIAL PRIMARY KEY,
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    total_distance NUMERIC(6,2) DEFAULT 0 CHECK (total_distance >= 0)
+CREATE TABLE billing_periods
+(
+    period_id      SERIAL PRIMARY KEY,
+    start_date     DATE NOT NULL,
+    end_date       DATE NOT NULL,
+    total_distance NUMERIC(6, 2) DEFAULT 0 CHECK (total_distance >= 0)
 );
 
 -- Table structure for table `users`
 --
-CREATE TABLE users (
-                       user_id SERIAL PRIMARY KEY,
-                       email VARCHAR(50) NOT NULL UNIQUE,
-                       display_name VARCHAR(50) NOT NULL,
-                       role VARCHAR(20) DEFAULT 'user'
+CREATE TABLE users
+(
+    user_id      SERIAL PRIMARY KEY,
+    email        VARCHAR(50) NOT NULL UNIQUE,
+    display_name VARCHAR(50) NOT NULL,
+    role         VARCHAR(20) DEFAULT 'user'
 );
-
 ```
 
 ---
