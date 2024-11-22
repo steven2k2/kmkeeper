@@ -1,25 +1,33 @@
-<!-- partials/sidebar.ejs-->
-<!-- Sidebar -->
-<div class="bg-light d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+<!-- partials/sidebar.ejs -->
+<div class="bg-light d-flex flex-column flex-shrink-0 p-3 sidebar">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4 text-capitalize text-primary"><%= text %></span>
+        <span class="fs-4 text-primary"><%= title %></span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-            <a href="/dashboard" class="nav-link <%= text === 'dashboard' ? 'active' : 'link-dark' %>">
-                Dashboard
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/trips/browse" class="nav-link <%= text === 'trips' ? 'active' : 'link-dark' %>">
-                Trips
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/readings" class="nav-link <%= text === 'clients' ? 'active' : 'link-dark' %>">
-                Clients
-            </a>
-        </li>
+        <% const menuItems = [
+            { href: '/clients', label: 'Clients', id: 'clients', disabled: false },
+            { href: '/trips', label: 'Trips', id: 'trips', disabled: false },
+            { href: '/users', label: 'Users', id: 'users', disabled: false },
+            { href: '/settings', label: 'Settings', id: 'settings', disabled: true }
+        ]; %>
+
+        <% menuItems.forEach(item => { %>
+            <li class="nav-item">
+                <% if (item.disabled) { %>
+                    <!-- Disabled menu item -->
+                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">
+                        <%= item.label %>
+                    </a>
+                <% } else { %>
+                    <!-- Active or inactive menu item -->
+                    <a href="<%= item.href %>"
+                       class="nav-link <%= menuId === item.id ? 'active' : 'link-dark' %>"
+                            <%= menuId === item.id ? 'aria-current="page"' : '' %>>
+                        <%= item.label %>
+                    </a>
+                <% } %>
+            </li>
+        <% }); %>
     </ul>
 </div>

@@ -1,0 +1,32 @@
+<nav class="bg-light sidebar d-flex flex-column p-3">
+    <a class="btn btn-primary btn-block mb-3 d-flex align-items-center" href="#">
+        <span class="material-icons mr-2">add</span> New
+    </a>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a href="/drive" class="nav-link <%= menuId === 'my-drive' ? 'active' : '' %>">
+                <span class="material-icons">folder</span> My Drive
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/shared" class="nav-link <%= menuId === 'shared' ? 'active' : '' %>">
+                <span class="material-icons">folder_shared</span> Shared with Me
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/recent" class="nav-link <%= menuId === 'recent' ? 'active' : '' %>">
+                <span class="material-icons">access_time</span> Recent
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/starred" class="nav-link <%= menuId === 'starred' ? 'active' : '' %>">
+                <span class="material-icons">star</span> Starred
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/trash" class="nav-link <%= menuId === 'trash' ? 'active' : '' %>">
+                <span class="material-icons">delete</span> Trash
+            </a>
+        </li>
+    </ul>
+</nav>
