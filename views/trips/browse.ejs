@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clients</title>
+    <title>Trips</title>
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom styling for sidebar */
@@ -16,7 +16,6 @@
         }
         .sidebar .nav-link.active {
             background-color: #0d6efd; /* Highlight active link */
-        //       color: #ffffff;
         }
         .sidebar .nav-link:hover {
             color: #adb5bd;
@@ -65,21 +64,21 @@
         <!-- Sidebar -->
         <nav class="col-md-2 sidebar d-flex flex-column p-3 bg-light-subtle">
             <button type="button" class="btn btn-light d-flex align-items-center justify-content-start mb-3">
-                <span class="material-icons-outlined me-2">add</span> New
+                <span class="material-icons-outlined me-2">add</span> New Trip
             </button>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link <%= text === 'dashboard' ? 'active' : 'link-dark' %>">
+                    <a href="/dashboard" class="nav-link <%= menuId === 'dashboard' ? 'active' : 'link-dark' %>">
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/trips/browse" class="nav-link <%= text === 'trips' ? 'active' : 'link-dark' %>">
+                    <a href="/trips/browse" class="nav-link <%= menuId === 'trips' ? 'active' : 'link-dark' %>">
                         Trips
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/clients/browse" class="nav-link <%= text === 'clients' ? 'active' : 'link-dark' %>">
+                    <a href="/clients/browse" class="nav-link <%= menuId === 'clients' ? 'active' : 'link-dark' %>">
                         Clients
                     </a>
                 </li>
@@ -91,7 +90,7 @@
             <table class="table table-sm table-hover">
                 <thead>
                 <tr>
-                    <th>Client Name</th>
+                    <th>Trip ID</th>
                     <th>Start Location</th>
                     <th>End Location</th>
                     <th>Distance</th>
@@ -103,13 +102,13 @@
                 <tbody>
                 <% trips.forEach(trip => { %>
                     <tr>
-                        <td><%= trip.client_name %></td>
+                        <td><%= trip.id %></td>
                         <td><%= trip.start_location %></td>
                         <td><%= trip.end_location %></td>
                         <td><%= trip.distance %> km</td>
                         <td><%= trip.purpose %></td>
                         <td class="text-truncate" style="max-width: 150px;"><%= trip.notes %></td>
-                        <td class="text-right">$<%= trip.claim_amount_dollars ? trip.claim_amount_dollars.toFixed(2) : '0.00' %></td>
+                        <td class="text-right">$<%= trip.claim_amount ? trip.claim_amount.toFixed(2) : '0.00' %></td>
                     </tr>
                 <% }) %>
                 </tbody>

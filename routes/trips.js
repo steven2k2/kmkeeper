@@ -1,35 +1,46 @@
+/**
+ * @fileoverview Routes for managing trips.
+ * Provides endpoints to browse and manage trip data.
+ *
+ * ## Table of Routes
+ * | HTTP Method | Endpoint       | Action     | Purpose                         |
+ * |-------------|----------------|------------|---------------------------------|
+ * | GET         | /trips/browse  | browse     | Fetch and render a list of trips. |
+ */
+
 const express = require('express');
 const router = express.Router();
-const { Client } = require('pg');
+const apiRequest = require('../utils/apiRequest'); // Utility for making API requests
+const config = require('../config');
 
-// PostgreSQL connection setup (optional: consider moving to a separate db config file)
-const db = new Client({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-});
+const TRIPS_API_URL = `${config.apiBaseUrl}/api/trips`; // Base API endpoint for trips
 
-// Connect to PostgreSQL
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to PostgreSQL:', err.message);
-    } else {
-        console.log('Connected to PostgreSQL database for trips');
-    }
-});
-
-// Browse Trips Route
+/**
+ * GET /trips/browse
+ * Fetch and render a list of trips.
+ */
 router.get('/browse', async (req, res) => {
-    const query = 'SELECT * FROM trips';
-
     try {
-        const { rows } = await db.query(query);
-        res.render('trips/browse', { text: 'trips', trips: rows });
+        // Fetch trip data from the API
+        const trips = await apiRequest('get', TRIPS_API_URL);
+
+        // Render the browse view
+        res.render('trips/browse', {
+            title: 'Trips',
+            menuId: 'trips',
+            trips,
+            error: null // No error
+        });
     } catch (err) {
-        console.error('Error retrieving trips data:', err.message);
-        res.status(500).send('Error retrieving trips data');
+        console.error(`Error fetching trips: ${err.message}`);
+
+        // Render the browse view with an error message
+        res.render('trips/browse', {
+            title: 'Trips - Error',
+            menuId: 'trips',
+            trips: [],
+            error: 'Failed to load trips.'
+        });
     }
 });
 

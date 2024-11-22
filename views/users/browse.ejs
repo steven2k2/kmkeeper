@@ -18,26 +18,30 @@
         </div>
         <!-- Main Content -->
         <main class="col-md-10 p-5 bg-white rounded-4 overflow-auto"> <!-- Scrolling enabled only for content -->
-            <table class="table table-sm">
+            <table class="table mt-4">
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>#</th>
                     <th>Email</th>
-                    <th>Phone number</th>
-                    <th>Street address</th>
-                    <th>City</th>
+                    <th>Display Name</th>
+                    <th>Role</th>
                 </tr>
                 </thead>
                 <tbody>
-                <% clients.forEach(client => { %>
+                <% if (users && users.length > 0) { %>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.user_id %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.display_name %></td>
+                            <td><%= user.role %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
                     <tr>
-                        <td><%= client.client_name %></td>
-                        <td><%= client.email || '-' %></td>
-                        <td><%= client.mobile_number || '555 555' %></td>
-                        <td><%= client.address_street || '-' %></td>
-                        <td><%= client.address_city || '-' %></td>
+                        <td colspan="4" class="text-center">No users found</td>
                     </tr>
-                <% }) %>
+                <% } %>
                 </tbody>
             </table>
         </main>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API with Axios</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Test View</h1>
+<div id="output"></div>
+<script>
+    // Test API call with Axios
+    axios.get('http://localhost:3000/api/clients')
+        .then(response => {
+            console.log(response.data); // Check the structure and verify data is as expected
+            const output = document.getElementById('output');
+            output.innerHTML = `
+                    <h2>${response.data.message}</h2>
+                    <ul>
+                        ${response.data.map(item => `<li>${item.client_name}</li>`).join('')}
+                    </ul>
+                `;
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+</script>
+</body>
+</html>
