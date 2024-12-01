@@ -14,8 +14,8 @@
 
 const express = require('express');
 const router = express.Router();
-const apiRequest = require('../utils/apiRequest'); // Centralized helper for API requests
-const config = require('../config');
+const apiRequest = require('../../src/utils/apiRequest.js'); // Centralized helper for API requests
+const config = require('../../config.js');
 
 const CLIENTS_API_URL = `${config.apiBaseUrl}/api/clients`; // Base API endpoint for clients
 

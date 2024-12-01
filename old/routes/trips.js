@@ -10,8 +10,8 @@
 
 const express = require('express');
 const router = express.Router();
-const apiRequest = require('../utils/apiRequest'); // Utility for making API requests
-const config = require('../config');
+const apiRequest = require('../../src/utils/apiRequest.js'); // Utility for making API requests
+const config = require('../../config.js');
 
 const TRIPS_API_URL = `${config.apiBaseUrl}/api/trips`; // Base API endpoint for trips
 
